@@ -1112,6 +1112,7 @@ A curated collection of practical Python examples for various use cases.
     - The aiter() function requires an object that implements the __aiter__ method, returning an asynchronous iterator.
     - Asynchronous iterators must implement the __anext__ method, which is a coroutine and should be awaited.
     - These examples use asyncio.run() to run the asynchronous main function, which is the recommended way to run asynchronous code in Python.
+    
     _The `aiter()` function is essential for working with asynchronous iteration, especially when dealing with I/O-bound tasks that can benefit from concurrency._
 
     [⬆️ Go to top](#collection-of-python-examples)
@@ -1275,8 +1276,194 @@ A curated collection of practical Python examples for various use cases.
     _The enumerate() function is a powerful tool for iterating over an iterable with a counter, making it easier to track the position of elements within the iterable._
 
     [⬆️ Go to top](#collection-of-python-examples)
-- filter(): Constructs an iterator from elements of an iterable for which a function returns true. 
-- iter(): Returns an iterator for an object. 
+- [filter()](https://www.w3schools.com/python/ref_func_filter.asp): **Constructs an iterator from elements of an iterable for which a function returns true.** 
+    ```python
+    # Example 1: Filtering Even Numbers from a List
+    # Define a function to check if a number is even
+    def is_even(num):
+        return num % 2 == 0
+
+    # Create a list of numbers
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # Use filter() to get an iterator of even numbers
+    even_numbers = filter(is_even, numbers)
+
+    # Convert the iterator to a list
+    even_numbers_list = list(even_numbers)
+    print(f"Even numbers: {even_numbers_list}")
+
+    # Example 2: Filtering Words Longer Than 3 Characters
+    # Define a function to check if the length of a word is greater than 3
+    def longer_than_three(word):
+        return len(word) > 3
+
+    # Create a list of words
+    words = ['cat', 'elephant', 'dog', 'tiger', 'mouse']
+
+    # Use filter() to get an iterator of words longer than 3 characters
+    long_words = filter(longer_than_three, words)
+
+    # Convert the iterator to a list
+    long_words_list = list(long_words)
+    print(f"Words longer than three characters: {long_words_list}")
+
+    # Example 3: Filtering Elements in a String
+    # Define a function to check if a character is a vowel
+    def is_vowel(char):
+        return char.lower() in 'aeiou'
+
+    # Create a string
+    text = "Hello, World!"
+
+    # Use filter() to get an iterator of vowels in the string
+    vowels = filter(is_vowel, text)
+
+    # Convert the iterator to a list
+    vowels_list = list(vowels)
+    print(f"Vowels in the text: {vowels_list}")
+
+    # Example 4: Using a Lambda Function with filter()
+    # Create a list of numbers
+    numbers = [10, 15, 20, 25, 30, 35, 40]
+
+    # Use filter() with a lambda function to filter numbers greater than 20
+    greater_than_twenty = filter(lambda x: x > 20, numbers)
+
+    # Convert the iterator to a list
+    greater_than_twenty_list = list(greater_than_twenty)
+    print(f"Numbers greater than 20: {greater_than_twenty_list}")
+
+    # Example 5: Filtering Dictionary Values
+    # Create a dictionary of students and their grades
+    student_grades = {
+        'Alice': 85,
+        'Bob': 92,
+        'Charlie': 78,
+        'David': 65,
+        'Eve': 95
+    }
+
+    # Define a function to check if a grade is passing
+    def is_passing(grade):
+        return grade >= 70
+
+    # Use filter() to get an iterator of passing grades
+    passing_grades = filter(is_passing, student_grades.values())
+
+    # Convert the iterator to a list
+    passing_grades_list = list(passing_grades)
+    print(f"Passing grades: {passing_grades_list}")
+
+    ```
+    Output:
+    ```
+    Even numbers: [2, 4, 6, 8, 10]
+    Words longer than three characters: ['elephant', 'tiger', 'mouse']
+    Vowels in the text: ['e', 'o', 'o']
+    Numbers greater than 20: [25, 30, 35, 40]
+    Passing grades: [85, 92, 78, 95]
+    ```
+    _The filter() function is a versatile tool for creating filtered subsets of data based on specified conditions, making it easier to process and analyze data efficiently._
+
+    [⬆️ Go to top](#collection-of-python-examples)
+- [iter()](https://www.w3schools.com/python/ref_func_iter.asp): **Returns an iterator for an object.** 
+    ```python
+    # Example 1: Iterating over a list
+    my_list = [1, 2, 3, 4, 5]
+    iterator = iter(my_list)
+
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    ```
+    Output:
+    ```
+    The output of `next(iterator)` is 1
+    The output of `next(iterator)` is 2
+    The output of `next(iterator)` is 3
+    The output of `next(iterator)` is 4
+    The output of `next(iterator)` is 5
+    ```
+    ```python
+    # Example 2: Iterating over a string
+    my_string = "hello"
+    iterator = iter(my_string)
+
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    ```
+    Output:
+    ```
+    The output of `next(iterator)` is 'h'
+    The output of `next(iterator)` is 'e'
+    The output of `next(iterator)` is 'l'
+    The output of `next(iterator)` is 'l'
+    The output of `next(iterator)` is 'o'
+    ```
+    ```python
+    # Example 3: Iterating over a dictionary
+    my_dict = {'a': 1, 'b': 2, 'c': 3}
+    iterator = iter(my_dict)
+
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    ```
+    Output:
+    ```
+    The output of `next(iterator)` is 'a'
+    The output of `next(iterator)` is 'b'
+    The output of `next(iterator)` is 'c'
+    ```
+    ```python
+    # Example 4: Using `iter()` with a file object
+    with open('example.txt', 'w') as f:
+        f.write("First line\nSecond line\nThird line")
+
+    with open('example.txt') as f:
+        iterator = iter(f)
+        
+        print(next(iterator))
+        print(next(iterator))
+        print(next(iterator))
+    ```
+    Output:
+    ```
+    The output of `next(iterator)` is 'First line\n'
+    The output of `next(iterator)` is 'Second line\n'
+    The output of `next(iterator)` is 'Third line\n'
+    ```
+    ```python
+    # Example 5: Custom iterator using `iter()` with a sentinel value
+    class Counter:
+        def __init__(self, limit):
+            self.count = 0
+            self.limit = limit
+
+        def __call__(self):
+            self.count += 1
+            if self.count > self.limit:
+                raise StopIteration
+            return self.count
+
+    counter = Counter(3)
+    iterator = iter(counter, StopIteration)
+
+    for num in iterator:
+        print(num)
+    ```
+    Output:
+    ```
+    The output of `print(num)` is 1
+    The output of `print(num)` is 2
+    The output of `print(num)` is 3
+    ```
 - len(): Returns the length of an object. 
 - map(): Applies a function to all items in an iterable. 
 - next(): Retrieves the next item from an iterator. 
